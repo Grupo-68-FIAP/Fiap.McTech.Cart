@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace Fiap.McTech.Cart.Api.DataContext
+namespace Fiap.McTech.Cart.Api.DbContext
 {
     public class RedisDataContext : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿using Fiap.McTech.Cart.Api.DataContext;
+﻿using Fiap.McTech.Cart.Api.DbContext;
 using StackExchange.Redis;
 
 namespace Fiap.McTech.Cart.Api.Configs
