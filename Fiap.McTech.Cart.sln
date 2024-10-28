@@ -7,11 +7,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{18AAB705-8E1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BD35C598-0466-48D5-9DBB-46B255A893D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.McTech.Cart.Api", "src\Fiap.McTech.Cart.Api\Fiap.McTech.Cart.Api.csproj", "{FB4E6F06-7382-4579-8BA3-2F24EB1031B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.McTech.Cart.Api", "src\Fiap.McTech.Cart.Api\Fiap.McTech.Cart.Api.csproj", "{FB4E6F06-7382-4579-8BA3-2F24EB1031B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionalTests", "tests\Fiap.McTech.Cart.FunctionalTests\Fiap.McTech.Cart.FunctionalTests\FunctionalTests.csproj", "{24FC60A9-BB5C-49E9-9AC7-D2340E535019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\Fiap.McTech.Cart.FunctionalTests\Fiap.McTech.Cart.FunctionalTests\FunctionalTests.csproj", "{24FC60A9-BB5C-49E9-9AC7-D2340E535019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\Fiap.McTech.Cart.UnitTests\UnitTests.csproj", "{69382D93-CC08-4888-8239-8E50135D3F31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\Fiap.McTech.Cart.UnitTests\UnitTests.csproj", "{69382D93-CC08-4888-8239-8E50135D3F31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{BDC9DB6C-04F4-4542-8B0E-18C943F2B18B}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
