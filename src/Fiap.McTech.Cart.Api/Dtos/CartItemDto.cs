@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Fiap.McTech.Cart.Api.Models.Dtos
+namespace Fiap.McTech.Cart.Api.Dtos
 {
     public class CartItemDto
     {

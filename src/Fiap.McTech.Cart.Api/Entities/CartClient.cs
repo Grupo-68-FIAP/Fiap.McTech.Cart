@@ -1,4 +1,4 @@
-﻿namespace Fiap.McTech.Cart.Api.Models.Entities
+﻿namespace Fiap.McTech.Cart.Api.Entities
 {
     public class CartClient : EntityBase
     {

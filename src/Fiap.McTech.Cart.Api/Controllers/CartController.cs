@@ -1,6 +1,6 @@
 ﻿using Fiap.McTech.Cart.Api.DbContext;
-using Fiap.McTech.Cart.Api.Models.Dtos;
-using Fiap.McTech.Cart.Api.Models.Entities;
+using Fiap.McTech.Cart.Api.Dtos;
+using Fiap.McTech.Cart.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 using System.Text.Json;
