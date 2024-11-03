@@ -30,5 +30,5 @@ O **Fiap.McTech.Cart** fornece uma interface de programação de aplicativos (AP
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seuusuario/Fiap.McTech.Cart.git
+   git clone https://github.com/seuusuario/Fiap.McTech.Cart.git](https://github.com/Grupo-68-FIAP/Fiap.McTech.Cart.git
    cd Fiap.McTech.Cart
