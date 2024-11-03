@@ -24,22 +24,6 @@ namespace FunctionalTests.StepDefinitions
             _controller = new CartController(redisDataContextMock.Object);
         }
 
-        [Given(@"que um carrinho com itens existe para um cliente")]
-        public async Task GivenQueUmCarrinhoComItensExisteParaUmCliente()
-        {
-            _clientId = Guid.NewGuid(); 
-            await _controller.CreateCart(_clientId);
-            _itemDto = new CartItemDto("Produto Exemplo", 2, 10.0M, Guid.NewGuid(), Guid.NewGuid());
-
-            await _controller.AddItem(_clientId, _itemDto);
-
-            var cartResponse = await _controller.GetCart(_clientId) as OkObjectResult;
-            var cart = cartResponse?.Value as CartClient;
-
-            Assert.IsNotNull(cart);
-            Assert.IsTrue(cart.Items.Any(i => i.ProductId == _itemDto.ProductId));
-        }
-
         [Given(@"que eu tenho um ID de cliente único")]
         public void GivenQueEuTenhoUmIDDeClienteUnico()
         {
@@ -63,7 +47,7 @@ namespace FunctionalTests.StepDefinitions
         {
             var result = await _controller.GetCart(_clientId) as OkObjectResult;
             Assert.IsNotNull(result);
-            Assert.AreEqual((int) HttpStatusCode.OK, result.StatusCode);
+            Assert.AreEqual((int) HttpStatusCode.OK, result?.StatusCode);
         }
 
         [Given(@"que um carrinho existe para um cliente")]
@@ -99,6 +83,22 @@ namespace FunctionalTests.StepDefinitions
             _response = await _controller.AddItem(_clientId, _itemDto);
         }
 
+        [Given(@"que um carrinho com itens existe para um cliente")]
+        public async Task GivenQueUmCarrinhoComItensExisteParaUmCliente()
+        {
+            _clientId = Guid.NewGuid();
+            await _controller.CreateCart(_clientId);
+            _itemDto = new CartItemDto("Produto Exemplo", 2, 10.0M, Guid.NewGuid(), Guid.NewGuid());
+
+            await _controller.AddItem(_clientId, _itemDto);
+
+            var cartResponse = await _controller.GetCart(_clientId) as OkObjectResult;
+            var cart = cartResponse?.Value as CartClient;
+
+            Assert.IsNotNull(cart);
+            Assert.IsTrue(cart?.Items.Any(i => i.ProductId == _itemDto.ProductId));
+        }
+
         [Then(@"o item deve aparecer no carrinho com os detalhes corretos")]
         public async Task ThenOItemDeveAparecerNoCarrinhoComOsDetalhesCorretos()
         {
@@ -126,7 +126,7 @@ namespace FunctionalTests.StepDefinitions
             var item = cart?.Items.Find(i => i.ProductId == _itemDto.ProductId);
 
             Assert.IsNotNull(item);
-            Assert.AreEqual(5, item.Quantity);
+            Assert.AreEqual(5, item?.Quantity);
         }
 
         [When(@"eu removo um item do carrinho")]

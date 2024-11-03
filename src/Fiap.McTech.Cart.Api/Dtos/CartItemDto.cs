@@ -4,8 +4,6 @@ namespace Fiap.McTech.Cart.Api.Dtos
 {
     public class CartItemDto
     {
-        public CartItemDto() { }
-
         public CartItemDto(string name, int quantity, decimal value, Guid productId, Guid cartClientId)
         {
             Name = name;
