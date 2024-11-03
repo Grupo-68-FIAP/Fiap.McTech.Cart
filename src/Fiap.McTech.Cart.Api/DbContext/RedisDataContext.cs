@@ -2,7 +2,15 @@
 
 namespace Fiap.McTech.Cart.Api.DbContext
 {
-    public class RedisDataContext : IDisposable
+    public interface IRedisDataContext : IDisposable
+    {
+        IDatabase Database { get; }
+        Task<bool> SetValueAsync(string key, string value, TimeSpan? expiry = null);
+        Task<string> GetValueAsync(string key);
+        Task<bool> DeleteKeyAsync(string key);
+    }
+
+    public class RedisDataContext : IRedisDataContext
     {
         private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _database;

@@ -12,8 +12,7 @@ namespace Fiap.McTech.Cart.Api.Controllers
     public class CartController : ControllerBase
     {
         private readonly IDatabase _redisDb;
-
-        public CartController(RedisDataContext redisDataContext)
+        public CartController(IRedisDataContext redisDataContext)
         {
             _redisDb = redisDataContext.Database;
         }
