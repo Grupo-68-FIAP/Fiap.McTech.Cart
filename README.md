@@ -6,6 +6,12 @@ Este projeto é uma API desenvolvida em C# usando .NET 6, com o Redis como banco
 
 O **Fiap.McTech.Cart** fornece uma interface de programação de aplicativos (API) que permite aos usuários criar, ler, atualizar e excluir itens no carrinho de compras. Esta funcionalidade é fundamental para a experiência de compra em quiosques de alimentação, permitindo que os usuários gerenciem suas seleções de maneira eficaz.
 
+## Abordagem Arquitetural
+
+Para esta aplicação, decidimos seguir uma arquitetura mais simplificada, sem a complexidade de camadas como Arquitetura Limpa, Onion, Vertical Slice, Ports and Adapters, etc. Por ser uma aplicação simples, a ideia é que a arquitetura seja a mais direta possível para facilitar a manutenção. Abaixo, você pode visualizar um diagrama que ilustra essa abordagem.
+
+![image](https://github.com/user-attachments/assets/bcad681d-a178-41f8-af38-718e1b054e98)
+
 ## Funcionalidades
 
 - Criar um novo carrinho de compras para um cliente.
