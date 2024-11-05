@@ -9,6 +9,9 @@ on:
     paths-ignore: [ '**/*.md', '.github/workflows/*', '!.github/workflows/dotnet.yml', '**/sonar-project.*']
     types: [ opened, synchronize, reopened ]
 
+env:
+  SOLUTION_NAME: Fiap.McTech.Cart.sln
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,11 +25,11 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Restore dependencies
-      run: dotnet restore "Fiap.McTech.sln"
+      run: dotnet restore "${{ env.SOLUTION_NAME }}"
 
     - name: Build
-      run: dotnet build "Fiap.McTech.Cart.sln" --configuration Release
+      run: dotnet build "${{ env.SOLUTION_NAME }}" --configuration Release
 
     - name: Test
-      run: dotnet test "Fiap.McTech.Cart.sln" --verbosity normal
+      run: dotnet test "${{ env.SOLUTION_NAME }}" --verbosity normal
       
