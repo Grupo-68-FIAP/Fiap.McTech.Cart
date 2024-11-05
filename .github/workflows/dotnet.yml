@@ -1,0 +1,32 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master", "develop" ]
+    paths-ignore: [ '**/*.md', '.github/workflows/*', '!.github/workflows/dotnet.yml', '**/sonar-project.*']
+  pull_request:
+    branches: [ "*" ]
+    paths-ignore: [ '**/*.md', '.github/workflows/*', '!.github/workflows/dotnet.yml', '**/sonar-project.*']
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore "Fiap.McTech.sln"
+
+    - name: Build
+      run: dotnet build "Fiap.McTech.Cart.sln" --configuration Release
+
+    - name: Test
+      run: dotnet test "Fiap.McTech.Cart.sln" --verbosity normal
+      
