@@ -1,3 +1,9 @@
+[![.NET](https://github.com/Grupo-68-FIAP/Fiap.McTech.Cart/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Grupo-68-FIAP/Fiap.McTech.Cart/actions/workflows/dotnet.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Grupo-68-FIAP_Fiap.McTech.Cart&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Grupo-68-FIAP_Fiap.McTech.Cart)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Grupo-68-FIAP_Fiap.McTech&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Grupo-68-FIAP_Fiap.McTech.Cart)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Grupo-68-FIAP_Fiap.McTech.Cart&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Grupo-68-FIAP_Fiap.McTech.Cart)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Grupo-68-FIAP_Fiap.McTech.Cart&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Grupo-68-FIAP_Fiap.McTech.Cart)
+
 # Fiap.McTech.Cart
 
 Este projeto é uma API desenvolvida em C# usando .NET 6, com o Redis como banco de dados não relacional. Ele é responsável por gerenciar o carrinho de compras de uma aplicação de Toten de alimentação do projeto McTech.
