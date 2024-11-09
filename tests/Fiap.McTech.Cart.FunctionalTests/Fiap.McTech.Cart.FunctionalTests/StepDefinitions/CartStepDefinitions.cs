@@ -39,7 +39,8 @@ namespace FunctionalTests.StepDefinitions
         [Then(@"o status da resposta deve ser (.*) Created")]
         public void ThenOStatusDaRespostaDeveSerCreated(int statusCode)
         {
-            Assert.AreEqual((HttpStatusCode) statusCode, ((ObjectResult) _response).StatusCode);
+            var createdAtResult = _response as CreatedAtActionResult;
+            Assert.AreEqual(statusCode, createdAtResult.StatusCode);
         }
 
         [Then(@"o carrinho deve existir no sistema")]
@@ -65,7 +66,7 @@ namespace FunctionalTests.StepDefinitions
         [Then(@"o status da resposta deve ser (.*) OK")]
         public void ThenOStatusDaRespostaDeveSerOK(int statusCode)
         {
-            Assert.AreEqual((HttpStatusCode) statusCode, ((ObjectResult) _response).StatusCode);
+            Assert.AreEqual((HttpStatusCode) statusCode, ((OkObjectResult) _response).StatusCode);
         }
 
         [Then(@"os Givens do carrinho devem corresponder ao formato esperado")]
