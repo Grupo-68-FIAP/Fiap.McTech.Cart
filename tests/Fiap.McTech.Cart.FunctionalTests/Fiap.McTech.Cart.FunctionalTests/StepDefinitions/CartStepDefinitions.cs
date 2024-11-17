@@ -3,9 +3,9 @@ using Fiap.McTech.Cart.Api.DbContext;
 using Fiap.McTech.Cart.Api.Dtos;
 using Fiap.McTech.Cart.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
 using NUnit.Framework;
-using System.Net;
+using StackExchange.Redis;
+using System.Net; 
 
 namespace FunctionalTests.StepDefinitions
 {
@@ -14,14 +14,17 @@ namespace FunctionalTests.StepDefinitions
     {
         private readonly CartController _controller;
         private IActionResult _response;
-        private Guid _clientId;
+        private Guid _clientId = Guid.NewGuid();
         private CartItemDto _itemDto;
+        private IRedisDataContext _redisDataContext;
 
         public CartStepDefinitions()
         {
-            var redisDataContextMock = new Mock<IRedisDataContext>();
-            redisDataContextMock.SetupGet(m => m.Database).Returns(Mock.Of<StackExchange.Redis.IDatabase>());
-            _controller = new CartController(redisDataContextMock.Object);
+            var redisConnectionString = "localhost:6379";
+            var connection = ConnectionMultiplexer.Connect(redisConnectionString);
+            _redisDataContext = new RedisDataContext(connection);
+
+            _controller = new CartController(_redisDataContext);
         }
 
         [Given(@"que eu tenho um ID de cliente único")]
@@ -66,10 +69,11 @@ namespace FunctionalTests.StepDefinitions
         [Then(@"o status da resposta deve ser (.*) OK")]
         public void ThenOStatusDaRespostaDeveSerOK(int statusCode)
         {
-            Assert.AreEqual((HttpStatusCode) statusCode, ((OkObjectResult) _response).StatusCode);
+            var result = _response as OkObjectResult;
+            Assert.AreEqual((int) HttpStatusCode.OK, result?.StatusCode);
         }
 
-        [Then(@"os Givens do carrinho devem corresponder ao formato esperado")]
+        [Then(@"os Dados do carrinho devem corresponder ao formato esperado")]
         public void ThenOsDadosDoCarrinhoDevemCorresponderAoFormatoEsperado()
         {
             var cart = ((OkObjectResult) _response).Value as CartClient;
@@ -104,7 +108,7 @@ namespace FunctionalTests.StepDefinitions
         public async Task ThenOItemDeveAparecerNoCarrinhoComOsDetalhesCorretos()
         {
             var cartResponse = await _controller.GetCart(_clientId) as OkObjectResult;
-            var cart = cartResponse!.Value as CartClient;
+            var cart = cartResponse?.Value as CartClient;
             var item = cart?.Items.Find(i => i.ProductId == _itemDto.ProductId);
 
             Assert.IsNotNull(item);
@@ -140,11 +144,12 @@ namespace FunctionalTests.StepDefinitions
         public async Task ThenOItemNaoDeveMaisExistirNoCarrinho()
         {
             var cartResponse = await _controller.GetCart(_clientId) as OkObjectResult;
-            var cart = cartResponse!.Value as CartClient;
+            var cart = cartResponse?.Value as CartClient;
             var item = cart?.Items.Find(i => i.ProductId == _itemDto.ProductId);
 
             Assert.IsNull(item);
         }
+
 
         [When(@"eu obtenho o valor total do carrinho")]
         public async Task WhenEuObtenhoOValorTotalDoCarrinho()

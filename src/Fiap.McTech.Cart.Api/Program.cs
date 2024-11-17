@@ -7,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRedis(builder.Configuration);
-builder.Services.AddJwtBearerAuthentication();
+//builder.Services.AddJwtBearerAuthentication();
 
 var app = builder.Build();
 

@@ -12,12 +12,12 @@ namespace Fiap.McTech.Cart.Api.DbContext
 
     public class RedisDataContext : IRedisDataContext
     {
-        private readonly ConnectionMultiplexer _connection;
+        private readonly IConnectionMultiplexer _connection;
         private readonly IDatabase _database;
 
-        public RedisDataContext(string connectionString)
+        public RedisDataContext(IConnectionMultiplexer connection)
         {
-            _connection = ConnectionMultiplexer.Connect(connectionString);
+            _connection = connection;
             _database = _connection.GetDatabase();
         }
 
@@ -40,7 +40,7 @@ namespace Fiap.McTech.Cart.Api.DbContext
 
         public void Dispose()
         {
-            _connection.Dispose();
+         
         }
     }
 }

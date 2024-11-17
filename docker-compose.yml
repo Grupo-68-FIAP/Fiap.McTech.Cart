@@ -1,12 +1,22 @@
-version: '3.8'
-
 services:
+  fiap.mctech.cart:
+    container_name: mctech_cart
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8081
+      ALLOW_SWAGGER_UI: true
+      OPENID_AUTHORITY: ${OPENID_AUTHORITY}
+      OPENID_AUDIENCE: ${OPENID_AUDIENCE}
+    ports:
+      - "8081:8081"
+    networks:
+      - local_network 
   redis:
     image: redis:latest
     ports:
       - "6379:6379"
     networks:
-      - redis-network
-
+      - local_network
 networks:
-  redis-network:
+  local_network:
+    driver: bridge

@@ -14,7 +14,7 @@ namespace Fiap.McTech.Cart.Api.Configs
                 return ConnectionMultiplexer.Connect(redisConnectionString);
             });
 
-            services.AddSingleton<RedisDataContext>();
+            services.AddSingleton<IRedisDataContext, RedisDataContext>();
         }
     }
 }
