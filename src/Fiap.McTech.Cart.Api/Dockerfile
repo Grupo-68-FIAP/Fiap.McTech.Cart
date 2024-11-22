@@ -13,14 +13,13 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Fiap.McTech.Cart.Api/Fiap.McTech.Cart.Api.csproj", "src/Fiap.McTech.Cart.Api/"]
 RUN dotnet restore "./src/Fiap.McTech.Cart.Api/Fiap.McTech.Cart.Api.csproj"
-COPY . .
 WORKDIR "/src/src/Fiap.McTech.Cart.Api"
-RUN dotnet build "./Fiap.McTech.Cart.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Fiap.McTech.Cart.Api.csproj" -c "$BUILD_CONFIGURATION" -o /app/build
 
 # Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Fiap.McTech.Cart.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Fiap.McTech.Cart.Api.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 # Esta fase é usada na produção ou quando executada no VS no modo normal (padrão quando não está usando a configuração de Depuração)
 FROM base AS final
