@@ -1,12 +1,20 @@
-version: '3.8'
-
 services:
+  fiap.mctech.cart.api:
+    depends_on:
+      - redis
+      - keycloak
+    image: ${DOCKER_REGISTRY-}fiapmctechcartapi
+    build:
+      context: .
+      dockerfile: src/Fiap.McTech.Cart.Api/Dockerfile
+
   redis:
     image: redis:latest
-    ports:
-      - "6379:6379"
-    networks:
-      - redis-network
+    restart: always
 
-networks:
-  redis-network:
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0
+    restart: always
+    command: start-dev
+    environment:
+        KC_HOSTNAME: keycloak

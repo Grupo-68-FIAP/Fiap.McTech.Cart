@@ -1,4 +1,3 @@
-using Fiap.McTech.Cart.Api.Configs;
 using Fiap.McTech.Cart.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
