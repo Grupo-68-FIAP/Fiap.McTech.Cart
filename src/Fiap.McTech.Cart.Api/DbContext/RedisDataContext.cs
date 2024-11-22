@@ -1,4 +1,5 @@
 ﻿using StackExchange.Redis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fiap.McTech.Cart.Api.DbContext
 {
@@ -10,14 +11,15 @@ namespace Fiap.McTech.Cart.Api.DbContext
         Task<bool> DeleteKeyAsync(string key);
     }
 
+    [ExcludeFromCodeCoverage]
     public class RedisDataContext : IRedisDataContext
     {
-        private readonly ConnectionMultiplexer _connection;
+        private readonly IConnectionMultiplexer _connection;
         private readonly IDatabase _database;
 
-        public RedisDataContext(string connectionString)
+        public RedisDataContext(IConnectionMultiplexer connection)
         {
-            _connection = ConnectionMultiplexer.Connect(connectionString);
+            _connection = connection;
             _database = _connection.GetDatabase();
         }
 
@@ -40,7 +42,7 @@ namespace Fiap.McTech.Cart.Api.DbContext
 
         public void Dispose()
         {
-            _connection.Dispose();
+         
         }
     }
 }

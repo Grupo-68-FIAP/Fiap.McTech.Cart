@@ -1,9 +1,18 @@
-﻿namespace Fiap.McTech.Cart.Api.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Fiap.McTech.Cart.Api.Entities
 {
     public class CartClient : EntityBase
     {
         public Guid ClientId { get; private set; }
         public List<CartItem> Items { get; private set; } = new();
+
+        [JsonConstructor] 
+        public CartClient(Guid clientId, List<CartItem> items)
+        {
+            ClientId = clientId;
+            Items = items ?? new List<CartItem>();
+        }
 
         public CartClient(Guid clientId)
         {

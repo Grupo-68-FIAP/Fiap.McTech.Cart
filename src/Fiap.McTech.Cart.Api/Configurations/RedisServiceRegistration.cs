@@ -1,8 +1,10 @@
 ﻿using Fiap.McTech.Cart.Api.DbContext;
 using StackExchange.Redis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fiap.McTech.Cart.Api.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public static class RedisServiceRegistration
     {
         public static void AddRedis(this IServiceCollection services, IConfiguration configuration)
@@ -16,7 +18,7 @@ namespace Fiap.McTech.Cart.Api.Configurations
                 return ConnectionMultiplexer.Connect(redisConnectionString);
             });
 
-            services.AddSingleton<RedisDataContext>();
+            services.AddSingleton<IRedisDataContext, RedisDataContext>();
         }
     }
 }
