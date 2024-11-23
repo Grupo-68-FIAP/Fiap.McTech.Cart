@@ -7,20 +7,18 @@ namespace Fiap.McTech.Cart.Api.DbContext
     {
         IDatabase Database { get; }
         Task<bool> SetValueAsync(string key, string value, TimeSpan? expiry = null);
-        Task<string> GetValueAsync(string key);
+        Task<string?> GetValueAsync(string key);
         Task<bool> DeleteKeyAsync(string key);
     }
 
     [ExcludeFromCodeCoverage]
     public class RedisDataContext : IRedisDataContext
     {
-        private readonly IConnectionMultiplexer _connection;
         private readonly IDatabase _database;
 
         public RedisDataContext(IConnectionMultiplexer connection)
         {
-            _connection = connection;
-            _database = _connection.GetDatabase();
+            _database = connection.GetDatabase();
         }
 
         public IDatabase Database => _database;
@@ -30,7 +28,7 @@ namespace Fiap.McTech.Cart.Api.DbContext
             return await _database.StringSetAsync(key, value, expiry);
         }
 
-        public async Task<string> GetValueAsync(string key)
+        public async Task<string?> GetValueAsync(string key)
         {
             return await _database.StringGetAsync(key);
         }

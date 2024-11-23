@@ -102,10 +102,11 @@ namespace Fiap.McTech.Cart.Api.Controllers
 
         private async Task<CartClient?> GetCartFromRedis(Guid clientId)
         {
-            var cartData = await _redisDb.StringGetAsync(clientId.ToString());
-            return cartData.IsNullOrEmpty
-                ? null
-                : JsonSerializer.Deserialize<CartClient>(cartData, _jsonOptions);
+            RedisValue cartData = await _redisDb.StringGetAsync(clientId.ToString());
+            if (cartData.IsNullOrEmpty)
+                return null;
+
+            return JsonSerializer.Deserialize<CartClient>(cartData.ToString(), _jsonOptions);
         }
 
         private async Task SaveCartToRedis(CartClient cart)
