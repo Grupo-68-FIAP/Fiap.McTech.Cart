@@ -1,18 +1,11 @@
 name: Container Publish
 
 on:
-  schedule:
-    - cron: '27 19 * * *'
   workflow_run:
     workflows: [ .NET ]
     types: [ completed ]
     branches: [ master, develop ]
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to run the workflow'
-        required: true
-        default: 'master'
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -32,10 +25,23 @@ jobs:
       id-token: write
 
     steps:
+      - name: Exibir informações sobre a referência
+        run: |
+          echo "github.ref: ${{ github.ref }}"
+          echo "github.ref_name: ${{ github.ref_name }}"
+          echo "github.head_ref: ${{ github.head_ref }}"
+          echo "github.event_name: ${{ github.event_name }}"
+          echo "github.event.ref: ${{ github.event.ref }}"
+          echo "github.event.workflow_run: ${{ github.event.workflow_run }}"
+          echo "github.event.workflow: ${{ github.event.workflow }}"
+          echo "github.actor: ${{ github.actor }}"
+          echo "github.repository: ${{ github.repository }}"
+          echo "github.sha: ${{ github.sha }}"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name || github.ref }}
+          ref: ${{ github.head_ref || github.ref }}
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
