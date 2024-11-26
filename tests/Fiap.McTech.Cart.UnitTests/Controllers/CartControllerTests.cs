@@ -71,10 +71,12 @@ namespace UnitTests.Controllers
         public async Task CreateCart_ShouldReturnCreated_WhenCartDoesNotExist()
         {
             var clientId = Guid.NewGuid();
-            _mockRedisDb.Setup(db => db.StringGetAsync(clientId.ToString(), It.IsAny<CommandFlags>()))
+            _mockRedisDb
+                .Setup(db => db.StringGetAsync(clientId.ToString(), It.IsAny<CommandFlags>()))
                 .ReturnsAsync((RedisValue) RedisValue.Null);
 
-            _mockRedisDb.Setup(db => db.StringSetAsync(clientId.ToString(), It.IsAny<string>(), null, When.Always, CommandFlags.None))
+            _mockRedisDb
+                .Setup(db => db.StringSetAsync(clientId.ToString(), It.IsAny<RedisValue>(), null, When.Always, CommandFlags.None))
                 .ReturnsAsync(true);
 
             var result = await _controller.CreateCart(clientId);

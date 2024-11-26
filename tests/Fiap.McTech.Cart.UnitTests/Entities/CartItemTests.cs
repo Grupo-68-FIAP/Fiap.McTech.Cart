@@ -117,14 +117,8 @@ namespace UnitTests.Entities
         [Fact]
         public void IsValid_ShouldReturnFalse_WhenDetailsAreInvalid()
         {
-            // Arrange
-            var cartItem = new CartItem("", 0, 0m, Guid.Empty, Guid.Empty);
-
-            // Act
-            var isValid = cartItem.IsValid();
-
-            // Assert
-            Assert.False(isValid);
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => new CartItem("", 0, 0m, Guid.Empty, Guid.Empty));
         }
     }
 }
