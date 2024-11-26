@@ -25,23 +25,10 @@ jobs:
       id-token: write
 
     steps:
-      - name: Exibir informações sobre a referência
-        run: |
-          echo "github.ref: ${{ github.ref }}"
-          echo "github.ref_name: ${{ github.ref_name }}"
-          echo "github.head_ref: ${{ github.head_ref }}"
-          echo "github.event_name: ${{ github.event_name }}"
-          echo "github.event.ref: ${{ github.event.ref }}"
-          echo "github.event.workflow_run: ${{ toJson(github.event.workflow_run) }}"
-          echo "github.event.workflow: ${{ toJson(github.event.workflow) }}"
-          echo "github.actor: ${{ github.actor }}"
-          echo "github.repository: ${{ github.repository }}"
-          echo "github.sha: ${{ github.sha }}"
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref || github.ref }}
+          ref: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref }}
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
