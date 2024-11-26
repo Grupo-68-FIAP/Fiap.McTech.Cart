@@ -1,7 +1,10 @@
-﻿namespace Fiap.McTech.Cart.Api.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Fiap.McTech.Cart.Api.Entities
 {
     public class CartItem
     {
+        [JsonConstructor] 
         public CartItem(string name, int quantity, decimal value, Guid productId, Guid cartClientId)
         {
             Name = name;

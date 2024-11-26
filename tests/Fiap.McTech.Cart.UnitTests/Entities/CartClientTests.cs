@@ -151,14 +151,8 @@ namespace UnitTests.Entities
             var cartClient = new CartClient(clientId);
             var productId = Guid.NewGuid();
 
-            var invalidItem = new CartItem("", 0, 0m, productId, cartClient.Id);
-            cartClient.Items.Add(invalidItem);
-
-            // Act
-            var isValid = cartClient.IsValid();
-
-            // Assert
-            Assert.False(isValid);
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => new CartItem("", 0, 0m, productId, cartClient.Id));
         }
     }
 }

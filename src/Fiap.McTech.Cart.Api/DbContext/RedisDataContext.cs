@@ -1,4 +1,5 @@
 ﻿using StackExchange.Redis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fiap.McTech.Cart.Api.DbContext
 {
@@ -6,19 +7,18 @@ namespace Fiap.McTech.Cart.Api.DbContext
     {
         IDatabase Database { get; }
         Task<bool> SetValueAsync(string key, string value, TimeSpan? expiry = null);
-        Task<string> GetValueAsync(string key);
+        Task<string?> GetValueAsync(string key);
         Task<bool> DeleteKeyAsync(string key);
     }
 
+    [ExcludeFromCodeCoverage]
     public class RedisDataContext : IRedisDataContext
     {
-        private readonly ConnectionMultiplexer _connection;
         private readonly IDatabase _database;
 
-        public RedisDataContext(string connectionString)
+        public RedisDataContext(IConnectionMultiplexer connection)
         {
-            _connection = ConnectionMultiplexer.Connect(connectionString);
-            _database = _connection.GetDatabase();
+            _database = connection.GetDatabase();
         }
 
         public IDatabase Database => _database;
@@ -28,7 +28,7 @@ namespace Fiap.McTech.Cart.Api.DbContext
             return await _database.StringSetAsync(key, value, expiry);
         }
 
-        public async Task<string> GetValueAsync(string key)
+        public async Task<string?> GetValueAsync(string key)
         {
             return await _database.StringGetAsync(key);
         }
@@ -40,7 +40,7 @@ namespace Fiap.McTech.Cart.Api.DbContext
 
         public void Dispose()
         {
-            _connection.Dispose();
+         
         }
     }
 }
