@@ -12,7 +12,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: Grupo-68-FIAP/mctech/cart
-  BRANCH: ${{ github.event.workflow_run.head_branch || github.head_ref || github.ref }}
+  BRANCH: ${{ github.event.workflow_run.head_branch || github.ref_name || github.ref }}
 
 jobs:
 
@@ -66,8 +66,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest,enable=${{ env.BRANCH == format('refs/heads/{0}', 'master') }}
-            type=raw,value=dev,enable=${{ env.BRANCH == format('refs/heads/{0}', 'develop') }}
+            type=raw,value=latest,enable=${{ env.BRANCH == 'master' }}
+            type=raw,value=dev,enable=${{ env.BRANCH == 'develop' }}
             type=ref,event=tag
 
       # Build and push Docker image with Buildx (don't push on PR)
