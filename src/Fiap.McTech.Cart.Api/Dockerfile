@@ -16,8 +16,8 @@ ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Fiap.McTech.Cart.Api.csproj" -c "$BUILD_CONFIGURATION" -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
-RUN addgroup -S nonroot \
-    && adduser -S nonroot -G nonroot
+RUN addgroup --system nonroot \
+    && adduser --system --ingroup nonroot nonroot
 WORKDIR /app
 COPY --from=publish /app/publish .
 USER nonroot
