@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: storage-limit-range
+  namespace: mctech-cart-space
+spec:
+  limits:
+  - default:
+      ephemeral-storage: "2Gi"
+    type: Container
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mctech-cart
+  namespace: mctech-cart-space
+  labels:
+    app: mctech-cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mctech-cart
+  template:
+    metadata:
+      labels:
+        app: mctech-cart
+    spec:
+      containers:
+        - name: mctech-cart-container
+          image: ghcr.io/grupo-68-fiap/mctech/cart:latest # NOSONAR
+          env:
+            - name: REDIS_CONNECTION
+              valueFrom:
+                secretKeyRef:
+                  name: mctech-cart-secret
+                  key: REDIS_CONNECTION
+            - name: OPENID_AUTHORITY
+              valueFrom:
+                secretKeyRef:
+                  name: cognito-secrets
+                  key: OPENID_AUTHORITY
+            - name: OPENID_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: cognito-secrets
+                  key: OPENID_AUDIENCE
+          envFrom:
+            - configMapRef:
+                name: mctech-cart-configmap
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /swagger
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /swagger
+              port: 8080
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 30
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 5m
+              ephemeral-storage: "1Gi"
+            limits:
+              memory: 256Mi
+              cpu: 200m
+              ephemeral-storage: "2Gi"
+      automountServiceAccountToken: false
