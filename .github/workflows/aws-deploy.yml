@@ -11,13 +11,12 @@ on:
 env:
   REGION_DEFAULT: us-east-1
   EKS_CLUSTER_NAME: MechTechApi
-  BRANCH: ${{ github.event.workflow_run.head_branch || github.ref_name || github.ref }}
 
 jobs:
 
   deploy-to-aws:
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.conclusion == 'success' && env.BRANCH == 'master'
+    if: github.event.workflow_run.conclusion == 'success' && ((github.event.workflow_run.head_branch || github.ref_name || github.ref) == 'master')
     steps:
       - name: Checkout
         uses: actions/checkout@v4
