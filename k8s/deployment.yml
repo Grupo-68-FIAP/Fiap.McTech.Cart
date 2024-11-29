@@ -15,7 +15,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mctech-cart
-  namespace: mctech-cart-space
   labels:
     app: mctech-cart
 spec:
