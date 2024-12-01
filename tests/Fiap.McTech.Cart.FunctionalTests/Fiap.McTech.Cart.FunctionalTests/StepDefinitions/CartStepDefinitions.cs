@@ -26,10 +26,11 @@ namespace FunctionalTests.StepDefinitions
             _redisDataContextMock.Setup(r => r.Database).Returns(_redisDbMock.Object);
             _controller = new CartController(_redisDataContextMock.Object);
             _clientId = Guid.NewGuid();
+            _response = null!;
         }
 
         [Given(@"que eu tenho um ID de cliente único")]
-        public void GivenQueEuTenhoUmIDDeClienteUnico()
+        public static void GivenQueEuTenhoUmIDDeClienteUnico()
         {
             // No actions needed here
         }
